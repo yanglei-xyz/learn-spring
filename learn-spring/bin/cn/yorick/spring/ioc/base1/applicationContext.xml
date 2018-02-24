@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+	<!-- 
+		bean:将一个类的对象创建过程交给spring容器
+			class：指定类的具体路径
+			id：唯一标识符（默认为 包名.类名#自然数，即：cn.yorick.spring.ioc.base1.YelloMouseWolf#0）
+	 -->
+	<bean id="yelloMouseWolf" class="cn.yorick.spring.ioc.base1.YelloMouseWolf"></bean>
+
+</beans>

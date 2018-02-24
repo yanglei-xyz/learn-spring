@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task-4.1.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+
+	<!-- 配置安全bean -->
+	<bean id="security" class="cn.yorick.spring.aop.Security"></bean>
+	<!-- 配置核心业务bean -->
+	<bean id="bankServiceImpl" class="cn.yorick.spring.aop.BankServiceImpl"></bean>
+	<!-- 配置日志bean -->
+	<bean id="riZhi" class="cn.yorick.spring.aop.RiZhi"></bean>
+	<!-- 配置清除缓存bean -->
+	<bean id="clean" class="cn.yorick.spring.aop.Clean"></bean>
+	<!-- 配置用来接收目标方法返回值的切面bean -->
+	<bean id="receive" class="cn.yorick.spring.aop.Receive"></bean>
+	<!-- 配置环绕通知切面bean -->
+	<bean id="auth" class="cn.yorick.spring.aop.Auth"></bean>
+	<!-- 配置捕获异常切面bean -->
+	<bean id="globalExpt" class="cn.yorick.spring.aop.GlobalExpt"></bean>
+	
+	<!-- 配置aop -->
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut expression="execution(* cn.yorick.spring.aop.BankServiceImpl.* (..))" id="aoppc"/>
+		
+		<!-- 配置安全检测切面 -->
+		<aop:aspect ref="security">
+			<!-- aop:before：代表前置通知；method：通知方法名；pointcut-ref：切入点ID -->
+			<aop:before method="isSecurity" pointcut-ref="aoppc"/>
+		</aop:aspect>
+		
+		<!-- 配置日志切面 order:int类型，数值越小优先级越高（aop:after数值越大越先执行，aop:around／aop:before数值越小越先执行）-->
+		<aop:aspect ref="riZhi" order="3">
+			<!-- 后置通知 -->
+			<aop:after method="log" pointcut-ref="aoppc"/>
+		</aop:aspect>
+		<!-- 配置清空bean切面 -->
+		<aop:aspect ref="clean" order="2">
+			<aop:after method="cleanResource" pointcut-ref="aoppc"/>
+		</aop:aspect>
+		
+		<!-- 配置接收参数切面 -->
+		<aop:aspect ref="receive" order="4">
+			<!-- returning：切面方法参数名，切入点返回值传入参数名位置 -->
+			<!-- 无返回值或类型不匹配的方法不执行此切面 -->
+			<aop:after-returning method="printMoney" pointcut-ref="aoppc" returning="money"/>
+		</aop:aspect>
+		
+		<!-- 环绕通知 -->
+		<aop:aspect ref="auth" order="0">
+			<aop:around method="isUserExist" pointcut-ref="aoppc"/>
+		</aop:aspect>
+
+		<!-- 异常通知 -->
+		<aop:aspect ref="globalExpt">
+			<!-- throwing为参数变量 -->
+			<aop:after-throwing method="handExpt" pointcut-ref="aoppc" throwing="ex"/>
+		</aop:aspect>
+	</aop:config>
+</beans>

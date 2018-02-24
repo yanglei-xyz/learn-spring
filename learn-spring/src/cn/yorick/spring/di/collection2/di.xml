@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+	<bean id="testChildBean" class="cn.yorick.spring.di.collection2.TestChildBean">
+		<property name="name" value="yorick"></property>
+		<property name="age" value="28"></property>
+	</bean>
+	
+	<bean id="testBean" class="cn.yorick.spring.di.collection2.TestBean">
+		<property name="name" value="testBeanName"></property>
+		<property name="child" ref="testChildBean"></property><!-- 自定义class使用ref赋值 -->
+		<property name="list">
+			<list>
+				<value>list1</value>
+				<value>list2</value>
+				<ref bean="testChildBean"/>
+			</list>
+		</property>
+		<property name="set">
+			<set>
+				<value>set1</value>
+				<value>set2</value>
+				<ref bean="testChildBean"/>
+			</set>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="name" value="mapName"/>
+				<entry key="age" value="10"></entry><!-- 没指定类型的时候默认key-value都为String -->
+				<entry key-ref="testChildBean" value="10"/>
+				<entry key="123" value-ref="testChildBean"/>
+			</map>
+		</property>
+		<property name="prop">
+			<props>
+				<prop key="name">propName</prop>
+				<prop key="age">123</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

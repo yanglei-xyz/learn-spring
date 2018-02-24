@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!-- 
+		scope用来控制spring 容器产生对象的方式，可以是单例也可以是多例 
+		常用的值有：singleton（单例）、prototype（多例），默认值为单例
+	 -->
+	<bean id="dog" class="cn.yorick.spring.ioc.singleton2.Dog" scope="prototype"></bean>
+</beans>

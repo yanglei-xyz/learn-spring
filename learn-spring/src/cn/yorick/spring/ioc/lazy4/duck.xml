@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+	<!-- 
+		lazy-init:告诉容器是否以懒加载方式创建对象
+			可选的值有true、false、default
+			true／default：以懒加载的方式创建对象。当真正使用对象的时候才创建对象
+			false：非懒加载，容器一启动就创建对象
+		当scope="prototype"（多例），以懒加载的方式产生对象
+	 -->
+	<bean id="duck" class="cn.yorick.spring.ioc.lazy4.Duck" lazy-init="true"></bean>
+</beans>
