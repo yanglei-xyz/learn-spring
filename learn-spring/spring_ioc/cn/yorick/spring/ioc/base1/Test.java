@@ -12,11 +12,11 @@ public class Test {
 		System.out.println("----------------------------------------------------------------------------------------");
 
 		// 通过xml中id值获取spring创建的对象
-		YelloMouseWolf wolf = (YelloMouseWolf) context.getBean("yelloMouseWolf");
+		TestBean wolf = (TestBean) context.getBean("testBean");
 		wolf.behavior();
 		System.out.println("----------------------------------------------------------------------------------------");
 		
-//		System.out.println(context.getBean("cn.yorick.spring.ioc.base1.YelloMouseWolf#0"));
+//		System.out.println(context.getBean("cn.yorick.spring.ioc.base1.TestBean#0"));
 
 	}
 

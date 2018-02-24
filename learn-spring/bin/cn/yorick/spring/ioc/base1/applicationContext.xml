@@ -8,8 +8,8 @@
 	<!-- 
 		bean:将一个类的对象创建过程交给spring容器
 			class：指定类的具体路径
-			id：唯一标识符（默认为 包名.类名#自然数，即：cn.yorick.spring.ioc.base1.YelloMouseWolf#0）
+			id：唯一标识符（默认为 包名.类名#自然数，即：cn.yorick.spring.ioc.base1.TestBean#0）
 	 -->
-	<bean id="yelloMouseWolf" class="cn.yorick.spring.ioc.base1.YelloMouseWolf"></bean>
+	<bean id="testBean" class="cn.yorick.spring.ioc.base1.TestBean"></bean>
 
 </beans>
